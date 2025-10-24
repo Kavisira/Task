@@ -1,0 +1,23 @@
+<div [formGroup]="group">
+      <label>{{ field.label }}</label>
+
+      <input *ngIf="field.type === 'text'" type="text" [formControlName]="field.name" />
+      <input *ngIf="field.type === 'date'" type="date" [formControlName]="field.name" />
+      <textarea *ngIf="field.type === 'textarea'" [formControlName]="field.name"></textarea>
+
+      <select *ngIf="field.type === 'dropdown'" [formControlName]="field.name">
+        <option *ngFor="let opt of field.options" [value]="opt">{{ opt }}</option>
+      </select>
+
+      <select *ngIf="field.type === 'multiselect'" [formControlName]="field.name" multiple>
+        <option *ngFor="let opt of field.options" [value]="opt">{{ opt }}</option>
+      </select>
+
+      <label *ngIf="field.type === 'checkbox'">
+        <input type="checkbox" [formControlName]="field.name" /> {{ field.label }}
+      </label>
+
+      <div class="error" *ngIf="group.get(field.name)?.invalid && group.get(field.name)?.touched">
+        {{ field.validation?.message || 'Invalid input' }}
+      </div>
+    </div>
